@@ -72,9 +72,13 @@ class CarsController extends AppController {
 			throw new NotFoundException(__('Invalid car'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Car->save($this->request->data)) {
-				$this->Session->setFlash(__('The car has been saved'));
-				$this->redirect(array('action' => 'index'));
+			if ($data = $this->Car->save($this->request->data)) {
+				if (!$this->RequestHandler->isAjax()) {
+					$this->Session->setFlash(__('The car has been saved'));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->set('car', $data);
+				}
 			} else {
 				$this->Session->setFlash(__('The car could not be saved. Please, try again.'));
 			}

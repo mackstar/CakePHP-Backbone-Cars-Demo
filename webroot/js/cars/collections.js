@@ -4,7 +4,7 @@ $(function(){
 
     // Reference to this collection's model.
     model: Car,
-    url: '/cake/cars',
+    url: '/cakefest/cars',
     
     items: function() {
       return this.models.length;
